@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Comparator Pro</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'invoice/home.css' %}">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧾 Invoice Comparator Pro</h1>
+      <p>Advanced invoice analysis and comparison tool</p>
+    </header>
+
+    <!-- Upload Section -->
+    <section class="upload-section">
+      <h2>📤 Upload Invoices</h2>
+      <form id="invoice-form" enctype="multipart/form-data">
+        <div class="upload-grid">
+          <div class="upload-field">
+            <label for="invoice1">📄 Invoice 1 (PDF)</label>
+            <input type="file" id="invoice1" name="invoice1" accept="application/pdf,image/*" required>
+            <span class="file-info">Select first invoice file</span>
+          </div>
+          <div class="upload-field">
+            <label for="invoice2">📄 Invoice 2 (PDF)</label>
+            <input type="file" id="invoice2" name="invoice2" accept="application/pdf,image/*" required>
+            <span class="file-info">Select second invoice file</span>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">🔍 Analyze & Compare</button>
+      </form>
+      <div id="status"></div>
+    </section>
+
+
+
+
+    <!-- Analysis Tabs -->
+    <div id="analysis-tabs" class="tabs-container" style="display: none;">
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="column-select">📋 Column Select</button>
+        <button class="tab-btn" data-tab="field-compare">🔍 Field Compare</button>
+      </div>
+
+      <!-- Column Selection Tab -->
+      <div id="column-select-tab" class="tab-content active">
+        <h3>📋 Custom Column Comparison</h3>
+        <div class="column-selector-grid">
+          <div class="selector-group">
+            <label for="invoice1-dropdown">Invoice 1 Column:</label>
+            <select id="invoice1-dropdown">
+              <option value="">Select Column</option>
+            </select>
+          </div>
+          <div class="selector-group">
+            <label for="invoice2-dropdown">Invoice 2 Column:</label>
+            <select id="invoice2-dropdown">
+              <option value="">Select Column</option>
+            </select>
+          </div>
+          <button id="add-comparison-btn" class="btn-primary">ADD</button>
+        </div>
+        <div id="selected-combinations-list" style="display: none; margin: 1rem 0;">
+          <h4>Selected Column Combinations:</h4>
+          <ul id="combinations-list"></ul>
+          <button id="create-table-btn" class="btn-primary">Create Table</button>
+        </div>
+        <div id="dropdown-comparison-result" class="comparison-result">
+          <div id="tables-container" class="tables-horizontal">
+            <!-- Multiple tables will be generated here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Field Comparison Tab -->
+      <div id="field-compare-tab" class="tab-content">
+        <h3>🔍 Smart Field Comparison</h3>
+        <div class="field-selector">
+          <label for="column-dropdown">Select Field Type:</label>
+          <select id="column-dropdown">
+            <option value="">Choose a field...</option>
+          </select>
+        </div>
+        <div class="table-wrapper">
+          <table id="column-comparison-table">
+            <thead><tr><th>Select a field to compare</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+   
+   
+
+
+
+
+
+
+
+    <!-- Raw Data Section -->
+    <section id="raw-data-section" class="data-section" style="display: none;">
+      <h2>📋 Extracted Data</h2>
+      <div class="data-toggle">
+        <button class="toggle-btn active" data-target="billing-data">Billing Data</button>
+        <button class="toggle-btn" data-target="summary-data">Summary Data</button>
+      </div>
+      
+      <div id="billing-data" class="data-content active">
+        <div class="split-tables">
+          <div class="table-container">
+            <h3>📄 Invoice 1 - Billing</h3>
+            <div class="table-wrapper">
+              <table id="billing1" class="data-table"></table>
+            </div>
+          </div>
+          <div class="table-container">
+            <h3>📄 Invoice 2 - Billing</h3>
+            <div class="table-wrapper">
+              <table id="billing2" class="data-table"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="summary-data" class="data-content">
+        <div class="split-tables">
+          <div class="table-container">
+            <h3>📊 Invoice 1 - Summary</h3>
+            <div class="table-wrapper">
+              <table id="summary1" class="data-table"></table>
+            </div>
+          </div>
+          <div class="table-container">
+            <h3>📊 Invoice 2 - Summary</h3>
+            <div class="table-wrapper">
+              <table id="summary2" class="data-table"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+
+  </div>
+
+  <script src="{% static 'invoice/home.js' %}" defer></script>
+</body>
+</html>

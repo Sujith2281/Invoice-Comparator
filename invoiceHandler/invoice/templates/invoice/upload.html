@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compare Invoices</title>
+</head>
+<body>
+  <h2>Upload Two Invoices</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Invoice 1:</label><br>
+    <input type="file" name="invoice1" accept="application/pdf"><br><br>
+
+    <label>Invoice 2:</label><br>
+    <input type="file" name="invoice2" accept="application/pdf"><br><br>
+
+    <button type="submit">Compare</button>
+  </form>
+
+  {% if billing1 %}
+    <h3>Billing Table - Invoice 1</h3>
+    <pre>{{ billing1 }}</pre>
+  {% endif %}
+</body>
+</html>
